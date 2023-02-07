@@ -3,17 +3,17 @@ import * as config from '../config/config'
 
 
 
-test.skip('test homepage', async ({ page }) => {
+test('test homepage', async ({ page }) => {
   console.log('testing homepage...')
   await page.goto(config.baseUrl)
   await expect(page.locator(config.homePage_hero_text)).toContainText('Neighbors helping neighbors')
 })
 
-test.skip('test login', async ({ page }) => {
+test('test login', async ({ page }) => {
   console.log('testing login...')
   await page.goto(config.baseUrl)
   await page.locator(config.loginButton_locator).click()
-  await expect(page.locator('//html/body/div/main/section/div/div[2]/div/div[3]/form/button')).toContainText('Continue with G')
+  await expect(page.locator('//html/body/div/main/section/div/div[2]/div/div[3]/form/button')).toContainText('Continue with Google')
 })
 
 
@@ -36,7 +36,7 @@ test('test login screenshot_2', async ({ page }) => {
 
 
 
-test.skip('generated test', async ({ page }) => {
+test('generated test', async ({ page }) => {
   await page.goto('https://agreeable-bush-0aea8c110.2.azurestaticapps.net/');
   await page.getByRole('link', { name: 'Login', exact: true }).click();
   await page.getByLabel('Email address').click();
@@ -44,5 +44,7 @@ test.skip('generated test', async ({ page }) => {
   await page.getByLabel('Password').click();
   await page.getByLabel('Password').fill('123456!@#aZ');
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Register Form' })).toHaveText("Register Form");
+  await page.waitForTimeout(6000)
+  // await expect(page.getByRole('heading', { name: 'Register Form' })).toHaveText("Register Form");
+  await expect(page).toHaveScreenshot('test-scrn2.png', { maxDiffPixels: 200, fullPage: true });
 });
